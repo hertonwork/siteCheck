@@ -35,7 +35,7 @@ const SCREENSHOTS = process.argv.includes('--screenshots');
             fullPage: false
         });
         console.log(await terminalImage.buffer(imgBuff, {
-            height: 400
+            height: 800
         }));
     }
 
