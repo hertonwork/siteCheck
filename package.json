@@ -1,0 +1,11 @@
+{
+  "name": "sitecheck",
+  "version": "1.0.0",
+  "description": "Simple site crawl to check things work",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Herton",
+  "license": "ISC"
+}
