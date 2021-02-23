@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const terminalImage = require('terminal-image');
 
 const URL = process.env.URL || 'http://localhost:20041/best-electric-scooters';
+const URLS_QUERY = process.env.URLS_QUERY || '[data-buyclick-url]';
 const SCREENSHOTS = process.argv.includes('--screenshots');
 
 (async () => {
@@ -17,15 +18,13 @@ const SCREENSHOTS = process.argv.includes('--screenshots');
     const appSelector = '#app';
     await page.waitForSelector(appSelector);
 
-    const resultsSelector = '[data-buyclick-url]';
-
     // Extract the exit urls
-    const exitUrls = await page.evaluate(resultsSelector => {
-        const elements = Array.from(document.querySelectorAll(resultsSelector));
+    const exitUrls = await page.evaluate(URLS_QUERY => {
+        const elements = Array.from(document.querySelectorAll(URLS_QUERY));
         return elements.map(el => {
             return el.dataset.buyclickUrl
         });
-    }, resultsSelector);
+    }, URLS_QUERY);
 
     let missingParams = 0;
     exitUrls.forEach(url => {
