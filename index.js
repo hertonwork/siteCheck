@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const terminalImage = require('terminal-image');
+
 const URL = process.env.URL || 'http://localhost:20041/best-electric-scooters';
 const SCREENSHOTS = process.argv.includes('--screenshots');
 
@@ -26,9 +27,19 @@ const SCREENSHOTS = process.argv.includes('--screenshots');
         });
     }, resultsSelector);
 
-    console.log(exitUrls.join('\n'));
-
+    let missingParams = 0;
+    exitUrls.forEach(url => {
+        console.log(`Checking ${url}`);
+        const params = new URLSearchParams(url);
+        for (const [key, value] of params.entries()) {
+            if (key && key != 'wm') {
+                console.assert(Boolean(value), `${key} is empty`);
+                missingParams = value ? missingParams : missingParams + 1;
+            }
+        }
+    })
     console.log(`There are ${exitUrls.length} buy urls set`);
+    console.log(`There are ${missingParams} missing params`);
 
     if (SCREENSHOTS) {
         let imgBuff = await page.screenshot({
