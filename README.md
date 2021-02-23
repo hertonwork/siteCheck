@@ -4,4 +4,4 @@
 ## Usage:
 `npm i`
 
-`URL=http://localhost:20041/ node index.js --screenshots`
+`URL=http://localhost:20041/ DATASET='buyclick-url' node index.js --screenshots`
